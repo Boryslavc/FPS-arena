@@ -8,12 +8,13 @@ public class BlueEnemy : Enemy, IShootable
 {
     [SerializeField] private EnemyData _enemyData;
     [SerializeField] private PickUpArea _pickUpArea;
+    [SerializeField] private Rifle gun;
 
     public Image stateImage;
 
     private NavMeshAgent agent;
     private EnemyHealth health;
-    private Rifle gun;
+    
     private Detector detector;
     private StateMachine stateMachine;
 
@@ -31,12 +32,7 @@ public class BlueEnemy : Enemy, IShootable
         detector = GetComponent<Detector>();
         health = GetComponent<EnemyHealth>();
 
-        gun = GetComponentInChildren<Rifle>();
-        if(health == null ) 
-        {
-            Debug.LogError($"No gun found on {gameObject.name}");
-        }
-        gun.SetRayCastOrigin(GetComponentInChildren<BoxCollider>().transform);
+        gun.SetRayCastOrigin(transform.Find("Eye Level"));
 
 
         agent.speed = _enemyData.Speed;

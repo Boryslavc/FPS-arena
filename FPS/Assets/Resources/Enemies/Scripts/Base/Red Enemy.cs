@@ -8,6 +8,7 @@ public class RedEnemy : Enemy, IShootable
 {
     [SerializeField] private EnemyData _enemyData;
     [SerializeField] private PickUpArea _pickUpArea;
+    [SerializeField] private Axe axe;
 
     public Image stateImage;
 
@@ -16,7 +17,6 @@ public class RedEnemy : Enemy, IShootable
     private Detector detector;
     private int attackTriggerInt = Animator.StringToHash("AttackTr");
     private Animator animator;
-    private Axe axe;
 
     private StateMachine stateMachine;
 
@@ -35,10 +35,6 @@ public class RedEnemy : Enemy, IShootable
         detector = GetComponent<Detector>();
         health = GetComponent<EnemyHealth>();
         animator = GetComponent<Animator>();
-
-        axe = GetComponentInChildren<Axe>();
-        if (axe == null)
-            Debug.LogError($"No axe found on {gameObject.name}");
         
 
         agent.speed = _enemyData.Speed;

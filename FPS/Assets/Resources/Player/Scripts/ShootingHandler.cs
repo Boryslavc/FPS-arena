@@ -6,7 +6,7 @@ public class ShootingHandler : MonoBehaviour
 {
     [Header("All guns available for player")]
     [SerializeField] private List<Gun> _gunsPrefabs;
-    [SerializeField] private Vector3 _gunOffset; //positional offset of a gun
+    [SerializeField] private Transform _gunOffset; //positional offset of a gun
 
     private InputHandler inputHandler;
     private Camera camera;
@@ -32,9 +32,7 @@ public class ShootingHandler : MonoBehaviour
     {
         foreach (Gun gun in _gunsPrefabs)
         {
-            var gunModel = Instantiate(gun);
-            gunModel.transform.position = gameObject.transform.position + _gunOffset;
-            gunModel.transform.parent = camera.gameObject.transform;
+            var gunModel = Instantiate(gun, _gunOffset);
             gunModel.gameObject.SetActive(false);
             gunModel.SetRayCastOrigin(camera.transform);
             gunList.Add(gunModel);
